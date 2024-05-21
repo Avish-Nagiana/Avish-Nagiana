@@ -71,6 +71,8 @@
 
 <br clear="both">
 
-<img src="https://github.com/Avish-Nagiana/Avish-Nagiana/blob/cb847b2e2f705f971452a5a4d196321cc9bba334/snake.yml" />
+## Snake Animation
+![Snake animation](https://github.com/your-github-username/your-github-username/blob/output/github-contribution-grid-snake.svg)
+
 
 ###
