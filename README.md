@@ -71,7 +71,7 @@
 
 <br clear="both">
 
-![Snake animation](https://github.com/Avish-Nagiana/Avish-Nagiana/blob/c1c6cea433faffa7fc05ce1b6c8580dff75dd5cb/.github/workflows/generate-snake.yml)
+[(https://github.com/Avish-Nagiana/Avish-Nagiana/blob/c1c6cea433faffa7fc05ce1b6c8580dff75dd5cb/.github/workflows/generate-snake.yml)](https://raw.githubusercontent.com/Platane/snk/output/github-contribution-grid-snake.svg)
 
 
 ###
