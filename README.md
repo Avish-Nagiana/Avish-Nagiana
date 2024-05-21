@@ -71,6 +71,6 @@
 
 <br clear="both">
 
-<img src="https://github.com/Avish-Nagiana/Avish-Nagiana/blob/output/github-contribution-grid-snake.svg" />
+<img src="[https://github.com/Avish-Nagiana/Avish-Nagiana/blob/output/github-contribution-grid-snake.svg](https://github.com/Avish-Nagiana/Avish-Nagiana/blob/cb847b2e2f705f971452a5a4d196321cc9bba334/snake.yml)" />
 
 ###
