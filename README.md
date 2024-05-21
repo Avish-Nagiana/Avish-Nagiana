@@ -71,8 +71,7 @@
 
 <br clear="both">
 
-## Snake Animation
-![Snake animation](https://github.com/your-github-username/your-github-username/blob/output/github-contribution-grid-snake.svg)
+![Snake animation](https://github.com/Avish-Nagiana/Avish-Nagiana/blob/output/github-contribution-grid-snake.svg)
 
 
 ###
