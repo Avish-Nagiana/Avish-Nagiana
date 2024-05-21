@@ -71,7 +71,7 @@
 
 <br clear="both">
 
-![Snake Animation](https://raw.githubusercontent.com/Platane/snk/output/github-contribution-grid-snake.svg)
+![Snake Animation](.github/workflows/generate-snake.yml)
 
 
 ###
