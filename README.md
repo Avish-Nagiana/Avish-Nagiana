@@ -8,7 +8,7 @@
 
 ###
 
-<img align="right" height="200" src=""C:\Users\avish\Downloads\8qq553.gif""  />
+<img align="right" height="200" src="C:\Users\avish\Downloads\8qq553.gif" />
 
 ###
 
