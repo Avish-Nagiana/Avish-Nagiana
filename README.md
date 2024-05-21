@@ -8,7 +8,7 @@
 
 ###
 
-<img align="right" height="200" width="200" src="https://www.canva.com/design/DAGF0q0Xpr4/Xc1E-FZPHUEJlB_JvZiE6Q/watch" />
+<img align="right" height="200" width="200" src="8qq553.gif" />
 
 ###
 
