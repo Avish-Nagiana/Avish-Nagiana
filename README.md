@@ -71,6 +71,6 @@
 
 <br clear="both">
 
-<img src="snake.yml" alt="Snake animation" />
+<img src="https://raw.githubusercontent.com/Avish-Nagiana/Avish-Nagiana/output/snake.svg" alt="Snake animation" />
 
 ###
