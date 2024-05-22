@@ -19,6 +19,7 @@ jobs:
         with:
           github_user_name: Avish-Nagiana
           outputs: dist/github-contribution-grid-snake.svg
+          token: ${{ secrets.PAT_GITHUB }}
 
       - name: Push Generated Snake
         uses: stefanzweifel/git-auto-commit-action@v4
