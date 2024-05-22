@@ -1,0 +1,39 @@
+name: Generate Snake Game from GitHub Contribution Grid
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Generate Snake Game
+        uses: platane/generate-snake-game-from-github-contribution-grid@v1
+        with:
+          github_user_name: Avish-Nagiana
+          github_token: ${{ secrets.PAT_GITHUB }}
+          outputs: |
+            dark.svg?palette=github-dark&color_snake=blue
+            light.svg?color_snake=#7845ab
+            ocean.svg?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
+
+      - name: Commit and Push Generated Snake Game
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_GITHUB }}
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git checkout -B output
+          mv dark.svg ./dark.svg
+          mv light.svg ./light.svg
+          mv ocean.svg ./ocean.svg
+          git add dark.svg light.svg ocean.svg
+          git commit -m 'Generate snake game'
+          git push -f origin output
