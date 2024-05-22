@@ -31,3 +31,4 @@ jobs:
           git add github-contribution-grid-snake.svg
           git commit -m 'Generate snake animation'
           git push -f origin output
+
