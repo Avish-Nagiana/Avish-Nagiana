@@ -71,4 +71,6 @@
 
 <br clear="both">
 
+![Snake animation](https://raw.githubusercontent.com/Avish-Nagiana/Avish-Nagiana/output/github-contribution-grid-snake.svg)
+
 ###
