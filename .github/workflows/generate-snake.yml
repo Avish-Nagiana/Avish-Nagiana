@@ -19,11 +19,15 @@ jobs:
         with:
           github_user_name: Avish-Nagiana
           outputs: dist/github-contribution-grid-snake.svg
-          token: ${{ secrets.PAT_GITHUB }}
 
-      - name: Push Generated Snake
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "Generate snake animation"
-          branch: output
-          file_pattern: dist/github-contribution-grid-snake.svg
+      - name: Commit and Push Generated Snake
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_GITHUB }}
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git checkout -B output
+          mv dist/github-contribution-grid-snake.svg ./github-contribution-grid-snake.svg
+          git add github-contribution-grid-snake.svg
+          git commit -m 'Generate snake animation'
+          git push -f origin output
