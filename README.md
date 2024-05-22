@@ -71,7 +71,4 @@
 
 <br clear="both">
 
-![Snake Animation](.github/workflows/generate-snake.yml)
-
-
 ###
