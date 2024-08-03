@@ -8,9 +8,13 @@ on:
 jobs:
   update-readme:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Ensure write permissions
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT_GITHUB }}
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -35,3 +39,5 @@ jobs:
           git add README.md
           git commit -m 'Update README with latest language stats'
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_GITHUB }}
