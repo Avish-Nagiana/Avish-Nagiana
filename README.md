@@ -98,7 +98,7 @@ Here are some of the projects I’ve worked on:
 </div>
 
 ### Most used languages
-<language_icons>
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Avish-Nagiana&layout=compact)
 
 ## Fun Fact
 
