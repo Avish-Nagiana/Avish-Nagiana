@@ -99,9 +99,10 @@ Here are some of the projects I’ve worked on:
 
 ## GitHub Stats
 
-![GitHub followers](https://img.shields.io/github/followers/Avish-Nagiana?style=social)
-![GitHub stars](https://img.shields.io/github/stars/Avish-Nagiana?style=social)
-![GitHub forks](https://img.shields.io/github/forks/Avish-Nagiana?style=social)
+- **Repositories**: <repo_count>
+- **Followers**: <followers_count>
+- **Following**: <following_count>
+
 
 ## Fun Fact
 
