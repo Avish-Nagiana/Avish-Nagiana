@@ -99,8 +99,7 @@ Here are some of the projects I’ve worked on:
 
 ## Stats
 
-- **Repositories**: 4
-- **Total Commits**: 4
+[![Avish's GitHub stats](https://github-readme-stats.vercel.app/api?username=Avish-Nagiana)](https://github.com/Avish-Nagiana/github-readme-stats)
 
 ## Fun Fact
 
