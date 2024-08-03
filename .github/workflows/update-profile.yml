@@ -9,8 +9,8 @@ jobs:
   update-readme:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      repo: read
+      contents: write # Allows updating the README file
+      repo: read # Allows reading from private repositories
 
     steps:
     - name: Checkout repo
