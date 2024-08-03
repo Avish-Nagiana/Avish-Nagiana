@@ -98,7 +98,7 @@ Here are some of the projects I’ve worked on:
 </div>
 
 <!-- START_LANGUAGES -->
-### Most Used Languages and Tools
+## Most Used Languages and Tools
 
 <img src="https://img.shields.io/badge/JavaScript-000000?style=flat&logo=javascript&logoColor=white" alt="JavaScript" />
 <img src="https://img.shields.io/badge/TypeScript-000000?style=flat&logo=typescript&logoColor=white" alt="TypeScript" />
