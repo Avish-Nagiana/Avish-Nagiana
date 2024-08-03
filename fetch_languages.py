@@ -1,9 +1,15 @@
 import requests
-import json
 import os
 
-USERNAME = os.getenv('NAME_GITHUB')
-TOKEN = os.getenv('PAT_GITHUB')
+# Fetch environment variables
+USERNAME = os.getenv('GITHUB_USERNAME')
+TOKEN = os.getenv('GITHUB_TOKEN')
+
+# Debug output
+if not USERNAME or not TOKEN:
+    print(f"USERNAME: {USERNAME}")
+    print(f"TOKEN: {TOKEN}")
+    raise ValueError('GitHub username or token environment variables are missing.')
 
 def fetch_repos(username):
     url = f'https://api.github.com/users/{username}/repos'
@@ -38,7 +44,7 @@ def main():
     
     sorted_languages = dict(sorted(language_count.items(), key=lambda item: item[1], reverse=True))
     
-    top_languages = {lang: '000000' for lang in sorted_languages.keys()}  
+    top_languages = {lang: '000000' for lang in sorted_languages.keys()}  # Placeholder color
     markdown = generate_markdown(top_languages)
     
     with open('README.md', 'w') as file:
