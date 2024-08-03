@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      # `repo` permission is not needed if you only need to read from private repos
+      # Add additional permissions if required
 
     steps:
     - name: Checkout repo
@@ -18,43 +18,43 @@ jobs:
 
     - name: Fetch user data and commit counts
       run: |
-        # Initialize commit count
+        # Initialize variables
         TOTAL_COMMITS=0
+        LANGUAGES=""
 
         # Fetch all repositories (including private ones)
-        REPO_LIST=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          https://api.github.com/user/repos?per_page=100&visibility=all | jq -r '.[].name' || { echo "Failed to fetch repositories"; exit 1; })
+        REPO_LIST=$(curl -s -H "Authorization: token ${{ secrets.PAT_GITHUB }}" \
+          https://api.github.com/user/repos?per_page=100&visibility=all | jq -r '.[].name')
 
         echo "Repositories: $REPO_LIST"
 
-        # Iterate over each repository to fetch commit counts
+        # Iterate over each repository to fetch commit counts and languages
         for REPO in $REPO_LIST; do
           echo "Processing repository: $REPO"
-          
-          # Fetch commits for each repository
-          COMMITS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            https://api.github.com/repos/Avish-Nagiana/$REPO/commits?per_page=1 | jq -r '.[].sha' | wc -l || { echo "Failed to fetch commits for $REPO"; continue; })
 
+          # Fetch commits for each repository
+          COMMITS=$(curl -s -H "Authorization: token ${{ secrets.PAT_GITHUB }}" \
+            https://api.github.com/repos/Avish-Nagiana/$REPO/commits?per_page=1 | jq -r '.[].sha' | wc -l)
+          TOTAL_COMMITS=$((TOTAL_COMMITS + COMMITS))
+          
           echo "Commits in $REPO: $COMMITS"
 
-          # Add to total commits
-          TOTAL_COMMITS=$((TOTAL_COMMITS + COMMITS))
+          # Fetch language stats for each repository
+          REPO_LANGS=$(curl -s -H "Authorization: token ${{ secrets.PAT_GITHUB }}" \
+            https://api.github.com/repos/Avish-Nagiana/$REPO/languages | jq -r 'to_entries[] | "\(.key)"')
+          
+          for LANG in $REPO_LANGS; do
+            LANGUAGES=$(echo "$LANGUAGES $LANG" | tr ' ' '\n' | sort | uniq | tr '\n' ' ')
+          done
         done
 
         echo "Total Commits: $TOTAL_COMMITS"
+        echo "Languages: $LANGUAGES"
 
         # Prepare commit count string
         COMMITS_STRING="Total Commits: $TOTAL_COMMITS"
+        LANGUAGES_STRING="Languages Used: $LANGUAGES"
 
-        # Update README.md with the total commits
+        # Update README.md with the total commits and languages
         sed -i "/<total_commits>/r /dev/stdin" README.md <<< "$COMMITS_STRING"
-        sed -i "/<total_commits>/d" README.md
-
-        # Commit changes
-        git config user.name "github-actions"
-        git config user.email "github-actions@github.com"
-        git add README.md
-        git commit -m "Update README with total commits"
-        git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        sed -i "/<languages>/r /dev/stdin" README.md <<< "$LANGUAGES_ST
