@@ -98,7 +98,7 @@ Here are some of the projects I’ve worked on:
 </div>
 
 ### Most used languages
-<language_list>
+<language_icons>
 
 ## Fun Fact
 
