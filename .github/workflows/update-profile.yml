@@ -15,10 +15,9 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-    - name: Fetch and Update Stats
+    - name: Fetch and Update Language Icons
       run: |
         # Initialize variables
-        TOTAL_COMMITS=0
         LANGUAGES=""
 
         # Fetch repositories list
@@ -34,21 +33,6 @@ jobs:
         echo "$REPO_LIST" | jq -r '.[].name' | while read REPO; do
           echo "Processing repository: $REPO"
 
-          # Fetch commits count
-          COMMITS=$(curl -s -H "Authorization: token ${{ secrets.PAT_GITHUB }}" \
-            "https://api.github.com/repos/Avish-Nagiana/$REPO/commits?per_page=1" \
-            | jq -r '.[].sha' | wc -l)
-          
-          if [ $? -ne 0 ]; then
-            echo "Failed to fetch commits for $REPO"
-            COMMITS=0
-          fi
-
-          # Debug: Print commit count
-          echo "Commits in $REPO: $COMMITS"
-
-          TOTAL_COMMITS=$((TOTAL_COMMITS + COMMITS))
-
           # Fetch language stats
           REPO_LANGS=$(curl -s -H "Authorization: token ${{ secrets.PAT_GITHUB }}" \
             "https://api.github.com/repos/Avish-Nagiana/$REPO/languages" \
@@ -59,25 +43,24 @@ jobs:
             continue
           fi
 
-          # Accumulate languages
+          # Accumulate languages (without duplicates)
           for LANG in $REPO_LANGS; do
-            LANGUAGES=$(echo "$LANGUAGES $LANG" | tr ' ' '\n' | sort | uniq | tr '\n' ' ')
+            ICON_URL="https://img.shields.io/badge/${LANG}-<color>?style=flat-square"
+            LANGUAGES="${LANGUAGES}![${LANG} icon](${ICON_URL}) "
           done
         done
 
-        echo "Total Commits: $TOTAL_COMMITS"
-        echo "Languages: $LANGUAGES"
+        echo "Languages Icons: $LANGUAGES"
 
         # Update README.md
-        echo "Updating README.md with the latest stats"
-        sed -i "/<total_commits>/c Total Commits: $TOTAL_COMMITS" README.md
-        sed -i "/<languages>/c Languages Used: $LANGUAGES" README.md
+        echo "Updating README.md with the latest language icons"
+        sed -i "/<languages_icons>/c Languages Used: $LANGUAGES" README.md
 
         # Commit changes
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
         git add README.md
-        git commit -m "Update README with total commits and languages"
+        git commit -m "Update README with language icons"
         git push
       env:
         PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
