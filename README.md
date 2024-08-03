@@ -99,7 +99,7 @@ Here are some of the projects I’ve worked on:
 
 ## Stats
 
-![Avish's GitHub stats](https://github-readme-stats.vercel.app/api?username=Avish-Nagiana&show_icons=True)
+![Avish's GitHub stats](https://github-readme-stats.vercel.app/api?username=Avish-Nagiana&show_icons=True&theme=transparent)
 
 ## Fun Fact
 
