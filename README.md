@@ -99,9 +99,9 @@ Here are some of the projects I’ve worked on:
 
 ## GitHub Stats
 
-- **Repositories**: <repo_count>
-- **Followers**: <followers_count>
-- **Following**: <following_count>
+- **Repositories**: 4
+- **Followers**: 0
+- **Following**: 0
 
 
 ## Fun Fact
