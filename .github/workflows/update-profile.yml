@@ -31,7 +31,8 @@ jobs:
 
         # Iterate over each repository to count commits
         for REPO in $REPO_LIST; do
-          COMMITS=$(curl -s https://api.github.com/repos/Avish-Nagiana/$REPO/commits?per_page=1 | jq -r 'length')
+          # Count commits in the repository
+          COMMITS=$(curl -s https://api.github.com/repos/Avish-Nagiana/$REPO/commits?author=Avish-Nagiana&per_page=10000 | jq -r 'length')
           TOTAL_COMMITS=$((TOTAL_COMMITS + COMMITS))
         done
         
