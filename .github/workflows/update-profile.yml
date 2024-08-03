@@ -36,12 +36,14 @@ jobs:
           done
         done
         
-        # Remove duplicate entries
+        # Remove duplicate entries and format output
         LANGUAGES=$(echo -e "$LANGUAGES" | sort -u)
         
         # Update README.md with the list of languages
-        sed -i "s|<language_list>|$LANGUAGES|g" README.md
-        
+        printf "%s" "$LANGUAGES" > languages.txt
+        sed -i "/<language_list>/r languages.txt" README.md
+        sed -i "/<language_list>/d" README.md
+
         # Commit changes
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
