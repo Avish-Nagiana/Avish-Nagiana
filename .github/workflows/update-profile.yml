@@ -15,20 +15,29 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-    - name: Update README
+    - name: Fetch user data
       run: |
         # Fetch user data from GitHub API
         curl -s https://api.github.com/users/Avish-Nagiana > stats.json
         
         # Extract values using jq and remove quotes
         REPOS=$(jq -r '.public_repos' stats.json)
-        FOLLOWERS=$(jq -r '.followers' stats.json)
-        FOLLOWING=$(jq -r '.following' stats.json)
         
-        # Update README.md
+        # Initialize total commits counter
+        TOTAL_COMMITS=0
+
+        # List repositories
+        REPO_LIST=$(curl -s https://api.github.com/users/Avish-Nagiana/repos?per_page=100 | jq -r '.[].name')
+
+        # Iterate over each repository to count commits
+        for REPO in $REPO_LIST; do
+          COMMITS=$(curl -s https://api.github.com/repos/Avish-Nagiana/$REPO/commits?per_page=1 | jq -r 'length')
+          TOTAL_COMMITS=$((TOTAL_COMMITS + COMMITS))
+        done
+        
+        # Update README.md with the stats
         sed -i "s|<repo_count>|$REPOS|g" README.md
-        sed -i "s|<followers_count>|$FOLLOWERS|g" README.md
-        sed -i "s|<following_count>|$FOLLOWING|g" README.md
+        sed -i "s|<total_commits>|$TOTAL_COMMITS|g" README.md
         
         # Commit changes
         git config user.name "github-actions"
