@@ -1,0 +1,31 @@
+name: Update Profile README
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs daily at midnight
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Update README
+      run: |
+        curl -s https://api.github.com/users/Avish-Nagiana | jq '.public_repos, .followers, .following' > stats.json
+        REPOS=$(jq '.public_repos' stats.json)
+        FOLLOWERS=$(jq '.followers' stats.json)
+        FOLLOWING=$(jq '.following' stats.json)
+        sed -i "s|<repo_count>|$REPOS|g" README.md
+        sed -i "s|<followers_count>|$FOLLOWERS|g" README.md
+        sed -i "s|<following_count>|$FOLLOWING|g" README.md
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git add README.md
+        git commit -m "Update README with latest stats"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
