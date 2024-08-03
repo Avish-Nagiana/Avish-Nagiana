@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write  # Allows the workflow to commit changes to the repository
-      # Uncomment if necessary for private repo access
-      # repo: read   # Allows read access to private repositories
-      # workflow: write  # Only if modifying workflows
 
     steps:
     - name: Checkout repo
@@ -47,8 +44,10 @@ jobs:
             COMMITS=0
           fi
 
-          TOTAL_COMMITS=$((TOTAL_COMMITS + COMMITS))
+          # Debug: Print commit count
           echo "Commits in $REPO: $COMMITS"
+
+          TOTAL_COMMITS=$((TOTAL_COMMITS + COMMITS))
 
           # Fetch language stats
           REPO_LANGS=$(curl -s -H "Authorization: token ${{ secrets.PAT_GITHUB }}" \
