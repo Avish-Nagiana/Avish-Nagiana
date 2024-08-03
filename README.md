@@ -101,12 +101,10 @@ Here are some of the projects I’ve worked on:
 
 ![Avish's GitHub stats](https://github-readme-stats.vercel.app/api?username=Avish-Nagiana&show_icons=True&theme=transparent)
 
-### Most used languages
+<total_commits>
 
-- ![JavaScript](https://img.shields.io/badge/JavaScript-%23323330.svg?style=flat&logo=javascript&logoColor=F7DF1E) JavaScript
-- ![Python](https://img.shields.io/badge/Python-%2338A1D1.svg?style=flat&logo=python&logoColor=FFD43B) Python
-- ![Shell](https://img.shields.io/badge/Shell-%23121011.svg?style=flat&logo=gnubash&logoColor=4EAA25) Shell
-- ![TypeScript](https://img.shields.io/badge/TypeScript-%232B7489.svg?style=flat&logo=typescript&logoColor=white) TypeScript
+### Most used languages
+<language_list>
 
 ## Fun Fact
 
