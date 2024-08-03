@@ -99,11 +99,9 @@ Here are some of the projects I’ve worked on:
 
 ## GitHub Stats
 
-![Your GitHub Stats](https://github-readme-stats.vercel.app/api?username=Avish-Nagiana&show_icons=true&theme=radical)
-
-![Commit Count](https://img.shields.io/badge/dynamic/json?label=Commits&query=count&url=https://api.github-count.now.sh/api?username=Avish-Nagiana)
-
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Avish-Nagiana&layout=compact&theme=radical)
+![GitHub followers](https://img.shields.io/github/followers/Avish-Nagiana?style=social)
+![GitHub stars](https://img.shields.io/github/stars/Avish-Nagiana?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Avish-Nagiana?style=social)
 
 ## Fun Fact
 
