@@ -20,8 +20,19 @@ jobs:
         # Initialize language list
         LANGUAGES=""
 
+        # Define icon URLs
+        declare -A ICONS
+        ICONS[Docker]="https://img.shields.io/badge/Docker-%23096AAB.svg?style=flat&logo=docker&logoColor=white"
+        ICONS[JavaScript]="https://img.shields.io/badge/JavaScript-%23323330.svg?style=flat&logo=javascript&logoColor=F7DF1E"
+        ICONS[Python]="https://img.shields.io/badge/Python-%2338A1D1.svg?style=flat&logo=python&logoColor=FFD43B"
+        ICONS[Shell]="https://img.shields.io/badge/Shell-%23121011.svg?style=flat&logo=gnubash&logoColor=4EAA25"
+        ICONS[TypeScript]="https://img.shields.io/badge/TypeScript-%232B7489.svg?style=flat&logo=typescript&logoColor=white"
+
         # List repositories
         REPO_LIST=$(curl -s https://api.github.com/users/Avish-Nagiana/repos?per_page=100 | jq -r '.[].name')
+
+        # Initialize language set to avoid duplicates
+        LANGUAGE_SET=""
 
         # Iterate over each repository to fetch language data
         for REPO in $REPO_LIST; do
@@ -30,25 +41,26 @@ jobs:
           
           # Extract and list languages
           for LANGUAGE in $(echo "$LANGUAGES_JSON" | jq -r 'keys[]'); do
-            if ! echo "$LANGUAGES" | grep -q "$LANGUAGE"; then
-              LANGUAGES+="- $LANGUAGE\n"
+            if ! echo "$LANGUAGE_SET" | grep -q "$LANGUAGE"; then
+              if [ -n "${ICONS[$LANGUAGE]}" ]; then
+                LANGUAGE_SET+="- ![${LANGUAGE}](${ICONS[$LANGUAGE]}) ${LANGUAGE}\n"
+              fi
             fi
           done
         done
         
         # Remove duplicate entries and format output
-        LANGUAGES=$(echo -e "$LANGUAGES" | sort -u)
+        LANGUAGE_SET=$(echo -e "$LANGUAGE_SET" | sort -u)
         
         # Update README.md with the list of languages
-        printf "%s" "$LANGUAGES" > languages.txt
-        sed -i "/<language_list>/r languages.txt" README.md
+        sed -i "/<language_list>/r /dev/stdin" README.md <<< "$LANGUAGE_SET"
         sed -i "/<language_list>/d" README.md
 
         # Commit changes
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
         git add README.md
-        git commit -m "Update README with language list"
+        git commit -m "Update README with language list and icons"
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
