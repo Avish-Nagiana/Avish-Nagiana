@@ -101,8 +101,12 @@ Here are some of the projects I’ve worked on:
 
 ![Avish's GitHub stats](https://github-readme-stats.vercel.app/api?username=Avish-Nagiana&show_icons=True&theme=transparent)
 
-<language_list>
 
+- Dockerfile
+- JavaScript
+- Python
+- Shell
+- TypeScript
 
 ## Fun Fact
 
