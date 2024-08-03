@@ -2,8 +2,8 @@ import requests
 import json
 import os
 
-USERNAME = os.getenv('GITHUB_USERNAME')
-TOKEN = os.getenv('GITHUB_TOKEN')
+USERNAME = os.getenv('NAME_GITHUB')
+TOKEN = os.getenv('PAT_GITHUB')
 
 def fetch_repos(username):
     url = f'https://api.github.com/users/{username}/repos'
