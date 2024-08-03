@@ -9,40 +9,58 @@ jobs:
   update-readme:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      # Add additional permissions if required
+      contents: write  # Allows the workflow to commit changes to the repository
+      # Uncomment if necessary for private repo access
+      # repo: read   # Allows read access to private repositories
+      # workflow: write  # Only if modifying workflows
 
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-    - name: Fetch user data and commit counts
+    - name: Fetch and Update Stats
       run: |
         # Initialize variables
         TOTAL_COMMITS=0
         LANGUAGES=""
 
-        # Fetch all repositories (including private ones)
+        # Fetch repositories list
         REPO_LIST=$(curl -s -H "Authorization: token ${{ secrets.PAT_GITHUB }}" \
-          https://api.github.com/user/repos?per_page=100&visibility=all | jq -r '.[].name')
+          "https://api.github.com/user/repos?per_page=100&visibility=all")
 
-        echo "Repositories: $REPO_LIST"
+        if [ $? -ne 0 ]; then
+          echo "Failed to fetch repository list"
+          exit 1
+        fi
 
-        # Iterate over each repository to fetch commit counts and languages
-        for REPO in $REPO_LIST; do
+        # Iterate over each repository
+        echo "$REPO_LIST" | jq -r '.[].name' | while read REPO; do
           echo "Processing repository: $REPO"
 
-          # Fetch commits for each repository
+          # Fetch commits count
           COMMITS=$(curl -s -H "Authorization: token ${{ secrets.PAT_GITHUB }}" \
-            https://api.github.com/repos/Avish-Nagiana/$REPO/commits?per_page=1 | jq -r '.[].sha' | wc -l)
-          TOTAL_COMMITS=$((TOTAL_COMMITS + COMMITS))
+            "https://api.github.com/repos/Avish-Nagiana/$REPO/commits?per_page=1" \
+            | jq -r '.[].sha' | wc -l)
           
+          if [ $? -ne 0 ]; then
+            echo "Failed to fetch commits for $REPO"
+            COMMITS=0
+          fi
+
+          TOTAL_COMMITS=$((TOTAL_COMMITS + COMMITS))
           echo "Commits in $REPO: $COMMITS"
 
-          # Fetch language stats for each repository
+          # Fetch language stats
           REPO_LANGS=$(curl -s -H "Authorization: token ${{ secrets.PAT_GITHUB }}" \
-            https://api.github.com/repos/Avish-Nagiana/$REPO/languages | jq -r 'to_entries[] | "\(.key)"')
+            "https://api.github.com/repos/Avish-Nagiana/$REPO/languages" \
+            | jq -r 'to_entries[] | .key')
           
+          if [ $? -ne 0 ]; then
+            echo "Failed to fetch languages for $REPO"
+            continue
+          fi
+
+          # Accumulate languages
           for LANG in $REPO_LANGS; do
             LANGUAGES=$(echo "$LANGUAGES $LANG" | tr ' ' '\n' | sort | uniq | tr '\n' ' ')
           done
@@ -51,10 +69,16 @@ jobs:
         echo "Total Commits: $TOTAL_COMMITS"
         echo "Languages: $LANGUAGES"
 
-        # Prepare commit count string
-        COMMITS_STRING="Total Commits: $TOTAL_COMMITS"
-        LANGUAGES_STRING="Languages Used: $LANGUAGES"
+        # Update README.md
+        echo "Updating README.md with the latest stats"
+        sed -i "/<total_commits>/c Total Commits: $TOTAL_COMMITS" README.md
+        sed -i "/<languages>/c Languages Used: $LANGUAGES" README.md
 
-        # Update README.md with the total commits and languages
-        sed -i "/<total_commits>/r /dev/stdin" README.md <<< "$COMMITS_STRING"
-        sed -i "/<languages>/r /dev/stdin" README.md <<< "$LANGUAGES_ST
+        # Commit changes
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git add README.md
+        git commit -m "Update README with total commits and languages"
+        git push
+      env:
+        PAT_GITHUB: ${{ secrets.PAT_GITHUB }}
