@@ -1,14 +1,10 @@
 import requests
 import os
 
-# Fetch environment variables
 USERNAME = os.getenv('GITHUB_USERNAME')
 TOKEN = os.getenv('GITHUB_TOKEN')
 
-# Debug output
 if not USERNAME or not TOKEN:
-    print(f"USERNAME: {USERNAME}")
-    print(f"TOKEN: {TOKEN}")
     raise ValueError('GitHub username or token environment variables are missing.')
 
 def fetch_repos(username):
@@ -47,8 +43,16 @@ def main():
     top_languages = {lang: '000000' for lang in sorted_languages.keys()}  # Placeholder color
     markdown = generate_markdown(top_languages)
     
+    # Read the current README
+    with open('README.md', 'r') as file:
+        readme_content = file.read()
+    
+    # Replace the placeholder section with new content
+    updated_content = readme_content.replace('<!-- START_LANGUAGES -->', f'<!-- START_LANGUAGES -->\n{markdown}\n<!-- END_LANGUAGES -->')
+    
+    # Write the updated README
     with open('README.md', 'w') as file:
-        file.write(markdown)
+        file.write(updated_content)
 
 if __name__ == '__main__':
     main()
