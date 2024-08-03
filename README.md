@@ -97,12 +97,10 @@ Here are some of the projects I’ve worked on:
 
 </div>
 
-## GitHub Stats
+## Stats
 
-- **Repositories**: 4
-- **Followers**: 0
-- **Following**: 0
-
+- **Repositories**: <repo_count>
+- **Total Commits**: <total_commits>
 
 ## Fun Fact
 
