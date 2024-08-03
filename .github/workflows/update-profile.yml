@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      # No need for 'repo' permissions if you only need to read from private repos
+      # `repo` permission is not needed if you only need to read from private repos
+
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3
@@ -20,17 +21,9 @@ jobs:
         # Initialize commit count
         TOTAL_COMMITS=0
 
-        # Define icon URLs (optional if needed)
-        declare -A ICONS_MAP
-        ICONS_MAP[Docker]="https://img.shields.io/badge/Docker-%23096AAB.svg?style=flat&logo=docker&logoColor=white"
-        ICONS_MAP[JavaScript]="https://img.shields.io/badge/JavaScript-%23323330.svg?style=flat&logo=javascript&logoColor=F7DF1E"
-        ICONS_MAP[Python]="https://img.shields.io/badge/Python-%2338A1D1.svg?style=flat&logo=python&logoColor=FFD43B"
-        ICONS_MAP[Shell]="https://img.shields.io/badge/Shell-%23121011.svg?style=flat&logo=gnubash&logoColor=4EAA25"
-        ICONS_MAP[TypeScript]="https://img.shields.io/badge/TypeScript-%232B7489.svg?style=flat&logo=typescript&logoColor=white"
-
-        # List all repositories (including private ones)
+        # Fetch all repositories (including private ones)
         REPO_LIST=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          https://api.github.com/user/repos?per_page=100&visibility=all | jq -r '.[].name')
+          https://api.github.com/user/repos?per_page=100&visibility=all | jq -r '.[].name' || { echo "Failed to fetch repositories"; exit 1; })
 
         echo "Repositories: $REPO_LIST"
 
@@ -40,8 +33,7 @@ jobs:
           
           # Fetch commits for each repository
           COMMITS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            https://api.github.com/repos/Avish-Nagiana/$REPO/commits?per_page=1 | \
-            jq -r '.[].sha' | wc -l)
+            https://api.github.com/repos/Avish-Nagiana/$REPO/commits?per_page=1 | jq -r '.[].sha' | wc -l || { echo "Failed to fetch commits for $REPO"; continue; })
 
           echo "Commits in $REPO: $COMMITS"
 
