@@ -17,8 +17,8 @@ jobs:
 
     - name: Fetch user data
       run: |
-        # Initialize language usage
-        declare -A LANGUAGE_COUNTS
+        # Initialize language list
+        LANGUAGES=""
 
         # List repositories
         REPO_LIST=$(curl -s https://api.github.com/users/Avish-Nagiana/repos?per_page=100 | jq -r '.[].name')
@@ -26,33 +26,27 @@ jobs:
         # Iterate over each repository to fetch language data
         for REPO in $REPO_LIST; do
           # Fetch language data for the repository
-          LANGUAGES=$(curl -s https://api.github.com/repos/Avish-Nagiana/$REPO/languages)
+          LANGUAGES_JSON=$(curl -s https://api.github.com/repos/Avish-Nagiana/$REPO/languages)
           
-          # Update language usage
-          for LANGUAGE in $(echo "$LANGUAGES" | jq -r 'keys[]'); do
-            COUNT=$(echo "$LANGUAGES" | jq -r ".\"$LANGUAGE\"")
-            if [[ -n "${LANGUAGE_COUNTS[$LANGUAGE]}" ]]; then
-              LANGUAGE_COUNTS[$LANGUAGE]=$((LANGUAGE_COUNTS[$LANGUAGE] + COUNT))
-            else
-              LANGUAGE_COUNTS[$LANGUAGE]=$COUNT
+          # Extract and list languages
+          for LANGUAGE in $(echo "$LANGUAGES_JSON" | jq -r 'keys[]'); do
+            if ! echo "$LANGUAGES" | grep -q "$LANGUAGE"; then
+              LANGUAGES+="- $LANGUAGE\n"
             fi
           done
         done
         
-        # Create language stats string
-        LANG_STATS=""
-        for LANG in "${!LANGUAGE_COUNTS[@]}"; do
-          LANG_STATS+="- $LANG: ${LANGUAGE_COUNTS[$LANG]} bytes\n"
-        done
+        # Remove duplicate entries
+        LANGUAGES=$(echo -e "$LANGUAGES" | sort -u)
         
-        # Update README.md with the language stats
-        sed -i "s|<language_stats>|$LANG_STATS|g" README.md
+        # Update README.md with the list of languages
+        sed -i "s|<language_list>|$LANGUAGES|g" README.md
         
         # Commit changes
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
         git add README.md
-        git commit -m "Update README with language stats"
+        git commit -m "Update README with language list"
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
