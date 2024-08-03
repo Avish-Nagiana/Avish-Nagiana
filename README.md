@@ -97,12 +97,6 @@ Here are some of the projects I’ve worked on:
 
 </div>
 
-## Stats
-
-![Avish's GitHub stats](https://github-readme-stats.vercel.app/api?username=Avish-Nagiana&show_icons=True&theme=transparent)
-
-Total Commits: 0
-
 ### Most used languages
 <language_list>
 
