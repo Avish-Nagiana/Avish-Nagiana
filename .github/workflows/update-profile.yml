@@ -15,13 +15,20 @@ jobs:
 
     - name: Update README
       run: |
-        curl -s https://api.github.com/users/Avish-Nagiana | jq '.public_repos, .followers, .following' > stats.json
-        REPOS=$(jq '.public_repos' stats.json)
-        FOLLOWERS=$(jq '.followers' stats.json)
-        FOLLOWING=$(jq '.following' stats.json)
+        # Fetch user data from GitHub API
+        curl -s https://api.github.com/users/Avish-Nagiana > stats.json
+        
+        # Extract values using jq and remove quotes
+        REPOS=$(jq -r '.public_repos' stats.json)
+        FOLLOWERS=$(jq -r '.followers' stats.json)
+        FOLLOWING=$(jq -r '.following' stats.json)
+        
+        # Update README.md
         sed -i "s|<repo_count>|$REPOS|g" README.md
         sed -i "s|<followers_count>|$FOLLOWERS|g" README.md
         sed -i "s|<following_count>|$FOLLOWING|g" README.md
+        
+        # Commit changes
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
         git add README.md
