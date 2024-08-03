@@ -24,8 +24,8 @@ jobs:
 
       - name: Run fetch_languages.py
         env:
-          GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USERNAME: ${{ secrets.NAME_GITHUB }}
+          GITHUB_TOKEN: ${{ secrets.PAT_GITHUB }}
         run: python fetch_languages.py
 
       - name: Commit and push changes
