@@ -100,6 +100,7 @@ Here are some of the projects I’ve worked on:
 ## Stats
 
 ![Avish's GitHub stats](https://github-readme-stats.vercel.app/api?username=Avish-Nagiana&show_icons=True&theme=transparent)
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Avish-Nagiana&hide_progress=true)
 
 ## Fun Fact
 
