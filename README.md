@@ -101,11 +101,7 @@ Here are some of the projects I’ve worked on:
 
 ![Avish's GitHub stats](https://github-readme-stats.vercel.app/api?username=Avish-Nagiana&show_icons=True&theme=transparent)
 
-- Python: 18847 bytes
-- Shell: 573 bytes
-- Dockerfile: 1922 bytes
-- TypeScript: 101415 bytes
-- JavaScript: 374195 bytes
+<language_list>
 
 
 ## Fun Fact
