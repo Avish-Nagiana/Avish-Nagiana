@@ -20,7 +20,7 @@ def fetch_languages(repo_name):
     return response.json()
 
 def generate_markdown(languages):
-    markdown = '## Languages and Tools\n\n'
+    markdown = '## Most Used Languages and Tools\n\n'
     for lang, color in languages.items():
         badge_url = f'https://img.shields.io/badge/{lang.replace(" ", "%20")}-000000?style=flat&logo={lang.lower().replace(" ", "-")}&logoColor=white'
         markdown += f'<img src="{badge_url}" alt="{lang}" />\n'
