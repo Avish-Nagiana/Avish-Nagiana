@@ -42,7 +42,7 @@ def main():
     
     top_languages = {lang: '000000' for lang in sorted_languages.keys()}  # Placeholder color
     markdown = generate_markdown(top_languages)
-    
+    """
     # Read the current README
     with open('README.md', 'r') as file:
         readme_content = file.read()
@@ -53,6 +53,6 @@ def main():
     # Write the updated README
     with open('README.md', 'w') as file:
         file.write(updated_content)
-
+    """
 if __name__ == '__main__':
     main()
