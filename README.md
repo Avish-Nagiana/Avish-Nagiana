@@ -9,7 +9,7 @@ I am a student currently pursuing a Data Science and Machine Learning program. I
 - 💻 I love exploring new technologies and applying them to solve real-world problems.<br>
 - 📊 My interests include data analysis, machine learning, artificial intelligence, and big data.<br>
 - 🌍 I am looking to collaborate on open-source projects and data science challenges.<br>
-- 📫 How to reach me: [Email](mailto:avishnagiana.gmail.com) | [LinkedIn Profile](www.linkedin.com/in/avish-nagiana-9ba44b2b8)
+- 📫 How to reach me: [Email](mailto:avishnagiana.gmail.com) | [LinkedIn Profile](https://www.linkedin.com/in/avish-nagiana-9ba44b2b8/)
 
 ## Skills
 
