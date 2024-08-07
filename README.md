@@ -78,7 +78,7 @@ I am a student currently pursuing a Data Science and Machine Learning program. I
 
 Here are some of the projects I’ve worked on:
 
-- **[Loki](https://github.com/Avish-Nagiana/Projects/tree/69a6bb588522c8973e088ecdd1729822d8e4b1e9/Loki%20(Low-Key%20game))**: Loki is a captivating adventure game inspired by the classic Zelda series, developed using the Pygame library in Python. Explore a richly detailed world, face challenging enemies, and experience engaging gameplay. The name "Loki" is inspired by my cat friend, who motivates me throughout the development process. 🐱🎮
+- **[Loki](https://github.com/Avish-Nagiana/Projects/tree/561ae178b0bd034ac513f20ac85a2d0e116db1d9/Loki%20(Low-Key%20game))**: Loki is a captivating adventure game inspired by the classic Zelda series, developed using the Pygame library in Python. Explore a richly detailed world, face challenging enemies, and experience engaging gameplay. The name "Loki" is inspired by my cat friend, who motivates me throughout the development process. 🐱🎮
 
 ## Get in Touch
 
